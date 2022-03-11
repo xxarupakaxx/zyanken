@@ -8,7 +8,7 @@ const (
 	Pa
 )
 
-func ConvertToSTr(zyanken Zyanken) string {
+func ConvertZyankenToStr(zyanken Zyanken) string {
 	switch zyanken {
 	case Gu:
 		return "👊"
