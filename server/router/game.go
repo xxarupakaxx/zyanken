@@ -76,4 +76,27 @@ func (g *GameHandler) zyanken(id int32, player *game.Player) error {
 	ga := g.games[int(id)]
 
 	winLose := ga.DecideWinLose(player.Te)
+	for _, server := range g.client[int(id)] {
+		err := server.Send(&pb.PlayerResponse{Event: &pb.PlayerResponse_Zyanken{Zyanken: &pb.PlayerResponse_ZyankenEvent{
+			Player: util.PBPlayer(player),
+		}}})
+		if err != nil {
+			return err
+		}
+
+		if winLose {
+			err = server.Send(&pb.PlayerResponse{Event: &pb.PlayerResponse_Finished{
+				Finished: &pb.PlayerResponse_FinishedEvent{
+					Result: util.PBResult(ga.Winner(player.Te)),
+				},
+			}})
+
+			delete(g.client, int(id))
+			if err != nil {
+				return err
+			}
+		}
+	}
+
+	return nil
 }
