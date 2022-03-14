@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package game;
+option go_package = "github.com/xxarupakaxx/zyanken/gen/pb";
+
+enum Te {
+  Gu = 0;
+  Choki = 1;
+  Pa = 2;
+}

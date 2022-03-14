@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package game;
+option go_package = "github.com/xxarupakaxx/zyanken/gen/pb";
+import "proto/te.proto";
+
+service ZyankenService{
+  rpc Play(stream PlayerRequest) returns (stream PlayerResponse) {}
+}
+
+message PlayerRequest {
+  int32 room_id = 1;
+  Player player = 2;
+
+  oneof action {
+    StartAction start = 3;
+    ZyankenAction zyanken = 4;
+  }
+
+  message StartAction {}
+
+  message ZyankenAction {
+    Zyanken zyanken = 1;
+  }
+}
+
+message PlayerResponse {
+  oneof event {
+    WaitingEvent waiting = 1;
+    ReadyEvent ready = 2;
+    ZyankenEvent zyanken = 3;
+    FinishedEvent finished = 4;
+  }
+
+  message WaitingEvent {}
+  message ReadyEvent {}
+  message ZyankenEvent {
+    Player player = 1;
+  }
+  message FinishedEvent {
+    Result result = 1;
+  }
+}
+message Player {
+  int32 id = 1;
+}
+
+message Zyanken {
+  Te te = 1;
+}
+
+enum Result {
+  DRAW = 0;
+  LOSE = 1;
+  WIN = 2;
+}
