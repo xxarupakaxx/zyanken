@@ -18,6 +18,12 @@ type MatchingHandler struct {
 	maxPlayerID int
 }
 
+func NewMatchingHandler() *MatchingHandler {
+	return &MatchingHandler{
+		Rooms:       make(map[int]*game.Room),
+	}
+}
+
 func (m *MatchingHandler) JoinRoom(request *pb.JoinRoomRequest, stream pb.MatchingService_JoinRoomServer) error {
 	ctx, cancel := context.WithTimeout(stream.Context(), time.Minute*2)
 	defer cancel()
