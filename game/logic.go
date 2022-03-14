@@ -8,6 +8,20 @@ type Game struct {
 	te       Zyanken
 }
 
+func (g *Game) DecideWinLose(aite Zyanken) bool {
+	result := zyankenLogic(g.te, aite)
+	if result == Draw {
+		ReGame()
+	}
+
+	fmt.Println("finished")
+
+	if result == Lose {
+		return false
+	}
+
+	return true
+}
 
 func display(te Zyanken) {
 	fmt.Println("")
