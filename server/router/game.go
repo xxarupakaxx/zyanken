@@ -14,6 +14,13 @@ type GameHandler struct {
 	client map[int][]pb.ZyankenService_PlayServer
 }
 
+func NewGameHandler() *GameHandler {
+	return &GameHandler{
+		games:  make(map[int]*game.Game),
+		client: make(map[int][]pb.ZyankenService_PlayServer),
+	}
+}
+
 func (g *GameHandler) Play(server pb.ZyankenService_PlayServer) error {
 	for true {
 		request, err := server.Recv()
@@ -62,6 +69,14 @@ func (g *GameHandler) start(stream pb.ZyankenService_PlayServer, id int32, playe
 	return nil
 }
 
+func (g *GameHandler) zyanken(id int32, player *game.Player) error {
+	g.Lock()
+	defer g.Unlock()
+
+	ga := g.games[int(id)]
+
+	winLose := ga.DecideWinLose(player.Te)
+}
 
 func (g *GameHandler) mustEmbedUnimplementedZyankenServiceServer() {
 	panic("implement me")
