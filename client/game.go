@@ -13,7 +13,6 @@ import (
 	"time"
 )
 
-type OpponentKey string
 type Zyanken struct {
 	sync.RWMutex
 	started  bool
