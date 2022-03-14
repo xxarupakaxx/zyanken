@@ -1,4 +1,4 @@
-package grpc
+package main
 
 import (
 	"fmt"
@@ -10,6 +10,8 @@ import (
 	"google.golang.org/grpc/reflection"
 	"log"
 	"net"
+	"os"
+	"os/signal"
 )
 
 func main() {
@@ -36,4 +38,9 @@ func main() {
 			log.Println("failed to start server :",err)
 		}
 	}()
+	quit := make(chan os.Signal)
+	signal.Notify(quit,os.Interrupt)
+	<- quit
+	log.Println("stopping gRPC server..")
+	server.GracefulStop()
 }
