@@ -32,9 +32,19 @@ func (g *GameHandler) Play(server pb.ZyankenService_PlayServer) error {
 		player := util.Player(request.GetPlayer())
 		switch request.GetAction().(type) {
 		case *pb.PlayerRequest_Start:
-			err = g.
+			err = g.start(server, roomID, player)
+			if err != nil {
+				return err
+			}
+		case *pb.PlayerRequest_Zyanken:
+			err = g.zyanken(roomID, player)
+			if err != nil {
+				return err
+			}
 		}
 	}
+
+	return nil
 }
 
 func (g *GameHandler) start(stream pb.ZyankenService_PlayServer, id int32, player *game.Player) error {
