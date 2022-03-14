@@ -32,3 +32,16 @@ func PBTe(te game.Zyanken) pb.Te {
 
 	return 0
 }
+
+func PBResult(result game.Result) pb.Result {
+	switch result {
+	case game.Draw:
+		return pb.Result_DRAW
+	case game.Lose:
+		return pb.Result_LOSE
+	case game.Win:
+		return pb.Result_WIN
+	default:
+		return 3
+	}
+}
