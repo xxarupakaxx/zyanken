@@ -14,7 +14,10 @@ func Room(r *pb.Room) *game.Room {
 }
 
 func Player(p *pb.Player) *game.Player {
-	return &game.Player{ID: int(p.GetId())}
+	return &game.Player{
+		ID: int(p.GetId()),
+		Te: Te(p.GetTe()),
+	}
 }
 
 func Te(p pb.Te) game.Zyanken {

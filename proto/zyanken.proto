@@ -43,6 +43,7 @@ message PlayerResponse {
 }
 message Player {
   int32 id = 1;
+  Te te = 2;
 }
 
 message Zyanken {

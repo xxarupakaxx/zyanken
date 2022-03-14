@@ -16,6 +16,7 @@ func PBRoom(r *game.Room) *pb.Room {
 func PBPlayer(p *game.Player) *pb.Player {
 	return &pb.Player{
 		Id: int32(p.ID),
+		Te: PBTe(p.Te),
 	}
 }
 
