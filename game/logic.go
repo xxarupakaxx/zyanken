@@ -1,5 +1,7 @@
 package game
 
+import "fmt"
+
 type Game struct {
 	started  bool
 	finished bool
@@ -7,7 +9,13 @@ type Game struct {
 }
 
 
+func display(te Zyanken) {
+	fmt.Println("")
 
+	fmt.Printf("You: %v\n", ConvertZyankenToStr(te))
+
+	fmt.Println("ーーーーーーーーーーーーーー")
+}
 
 func zyankenLogic(watashi, aite Zyanken) Result {
 	ans := (watashi - aite + 3) % 3
