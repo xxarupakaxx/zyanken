@@ -20,7 +20,7 @@ type MatchingHandler struct {
 
 func NewMatchingHandler() *MatchingHandler {
 	return &MatchingHandler{
-		Rooms:       make(map[int]*game.Room),
+		Rooms: make(map[int]*game.Room),
 	}
 }
 
@@ -103,8 +103,4 @@ func (m *MatchingHandler) JoinRoom(request *pb.JoinRoomRequest, stream pb.Matchi
 	}
 
 	return nil
-}
-
-func (m *MatchingHandler) mustEmbedUnimplementedMatchingServiceServer() {
-	panic("implement me")
 }

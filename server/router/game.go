@@ -77,7 +77,3 @@ func (g *GameHandler) zyanken(id int32, player *game.Player) error {
 
 	winLose := ga.DecideWinLose(player.Te)
 }
-
-func (g *GameHandler) mustEmbedUnimplementedZyankenServiceServer() {
-	panic("implement me")
-}
