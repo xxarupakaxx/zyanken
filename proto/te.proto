@@ -7,4 +7,5 @@ enum Te {
   Gu = 0;
   Choki = 1;
   Pa = 2;
+  None =3;
 }

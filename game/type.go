@@ -7,6 +7,7 @@ const (
 	Gu Zyanken = iota
 	Choki
 	Pa
+	None
 )
 
 const (
@@ -23,6 +24,8 @@ func ConvertZyankenToStr(zyanken Zyanken) string {
 		return "✌"
 	case Pa:
 		return "🖐"
+	case None:
+		return "何も選択できていません"
 	}
 
 	return ""
@@ -38,5 +41,5 @@ func ConvertResultToStr(result Result) string {
 		return "勝ち"
 	}
 
-	return ""
+	return "引き分け"
 }
