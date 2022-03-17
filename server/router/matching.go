@@ -25,7 +25,7 @@ func NewMatchingHandler() *MatchingHandler {
 }
 
 func (m *MatchingHandler) JoinRoom(request *pb.JoinRoomRequest, stream pb.MatchingService_JoinRoomServer) error {
-	ctx, cancel := context.WithTimeout(stream.Context(), time.Minute*2)
+	ctx, cancel := context.WithTimeout(stream.Context(), 2*time.Minute)
 	defer cancel()
 
 	m.Lock()
@@ -35,6 +35,7 @@ func (m *MatchingHandler) JoinRoom(request *pb.JoinRoomRequest, stream pb.Matchi
 
 	for _, room := range m.Rooms {
 		if room.Guest == nil {
+			me.Te = game.None
 			room.Guest = me
 			err := stream.Send(&pb.JoinRoomResponse{
 				Room:   util.PBRoom(room),
@@ -42,17 +43,17 @@ func (m *MatchingHandler) JoinRoom(request *pb.JoinRoomRequest, stream pb.Matchi
 				Status: pb.JoinRoomResponse_MATCHED,
 			})
 			if err != nil {
-				fmt.Println("errroだよ", err)
 				return err
 			}
 
 			m.Unlock()
-			fmt.Printf("マッチしました roomID = %v \n", room.ID)
+			fmt.Printf("matched roomID = %v\n", room.ID)
 
 			return nil
 		}
 	}
 
+	me.Te = game.None
 	room := &game.Room{
 		ID:   len(m.Rooms) + 1,
 		Host: me,
@@ -86,7 +87,7 @@ func (m *MatchingHandler) JoinRoom(request *pb.JoinRoomRequest, stream pb.Matchi
 				ch <- 0
 				break
 			}
-			time.Sleep(time.Second * 1)
+			time.Sleep(1 * time.Second)
 
 			select {
 			case <-ctx.Done():
