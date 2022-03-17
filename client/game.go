@@ -26,7 +26,15 @@ func NewZyanken() *Zyanken {
 	return &Zyanken{}
 }
 
-func (z *Zyanken) Run() error {
+func (z *Zyanken) Run() int {
+	if err := z.run(); err != nil {
+		fmt.Println(err)
+		return 1
+	}
+	return 0
+}
+
+func (z *Zyanken) run() error {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	conn, err := grpc.Dial(":50051", grpc.WithInsecure())

@@ -1,10 +1,10 @@
 package main
 
-import "github.com/xxarupakaxx/zyanken/client"
+import (
+	"github.com/xxarupakaxx/zyanken/client"
+	"os"
+)
 
 func main() {
-	err := client.NewZyanken().Run()
-	if err != nil {
-		panic(err)
-	}
+	os.Exit(client.NewZyanken().Run())
 }

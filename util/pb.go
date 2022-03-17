@@ -14,6 +14,10 @@ func PBRoom(r *game.Room) *pb.Room {
 }
 
 func PBPlayer(p *game.Player) *pb.Player {
+	if p == nil {
+		return nil
+	}
+
 	return &pb.Player{
 		Id: int32(p.ID),
 		Te: PBTe(p.Te),
@@ -30,7 +34,7 @@ func PBTe(te game.Zyanken) pb.Te {
 		return pb.Te_Pa
 	}
 
-	return 0
+	return pb.Te_None
 }
 
 func PBResult(result game.Result) pb.Result {
@@ -41,7 +45,7 @@ func PBResult(result game.Result) pb.Result {
 		return pb.Result_LOSE
 	case game.Win:
 		return pb.Result_WIN
-	default:
-		return 3
 	}
+
+	return 0
 }

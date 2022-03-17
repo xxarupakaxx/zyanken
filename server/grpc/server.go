@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	grpc_logrus "github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus"
-	"github.com/sirupsen/logrus"
+	logrus2 "github.com/sirupsen/logrus"
 	pb "github.com/xxarupakaxx/zyanken/gen/proto"
 	"github.com/xxarupakaxx/zyanken/server/router"
 	"google.golang.org/grpc"
@@ -21,8 +21,8 @@ func main() {
 		log.Fatalf("failed to listen :%v",err)
 	}
 
-	logrusLogger := logrus.New()
-	logrusEnty := logrus.NewEntry(logrusLogger)
+	logrusLogger := logrus2.New()
+	logrusEnty := logrus2.NewEntry(logrusLogger)
 	grpc_logrus.ReplaceGrpcLogger(logrusEnty)
 	server := grpc.NewServer(grpc.UnaryInterceptor(grpc_logrus.UnaryServerInterceptor(logrusEnty)))
 

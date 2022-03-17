@@ -42,6 +42,7 @@ func (m *MatchingHandler) JoinRoom(request *pb.JoinRoomRequest, stream pb.Matchi
 				Status: pb.JoinRoomResponse_MATCHED,
 			})
 			if err != nil {
+				fmt.Println("errroだよ", err)
 				return err
 			}
 
