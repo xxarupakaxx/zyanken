@@ -148,9 +148,9 @@ func (z *Zyanken) send(ctx context.Context, stream pb.ZyankenService_PlayClient)
 			text := stdin.Text()
 			te, err := parseInput(text)
 			if err != nil {
-				fmt.Println(err)
 				continue
 			}
+			z.me.Te = te
 
 			go func() {
 				err = stream.Send(&pb.PlayerRequest{
@@ -190,6 +190,7 @@ func (z *Zyanken) send(ctx context.Context, stream pb.ZyankenService_PlayClient)
 
 		}
 	}
+
 	return nil
 }
 
@@ -245,6 +246,6 @@ func parseInput(text string) (game.Zyanken, error) {
 	case "2":
 		return game.Pa, nil
 	default:
-		return 3, fmt.Errorf("入力が不正です")
+		return game.None, fmt.Errorf("入力が不正です")
 	}
 }
