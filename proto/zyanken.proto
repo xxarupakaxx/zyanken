@@ -29,7 +29,8 @@ message PlayerResponse {
     WaitingEvent waiting = 1;
     ReadyEvent ready = 2;
     ZyankenEvent zyanken = 3;
-    FinishedEvent finished = 4;
+    ZyankenWaitingEvent zyankenWaiting = 4;
+    FinishedEvent finished = 5;
   }
 
   message WaitingEvent {}
@@ -37,6 +38,7 @@ message PlayerResponse {
   message ZyankenEvent {
     Player player = 1;
   }
+  message ZyankenWaitingEvent {}
   message FinishedEvent {
     Result result = 1;
   }
