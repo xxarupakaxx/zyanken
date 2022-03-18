@@ -21,6 +21,7 @@ message PlayerRequest {
 
   message ZyankenAction {
     Zyanken zyanken = 1;
+    bool waiting  = 2;
   }
 }
 
