@@ -2,7 +2,8 @@ syntax = "proto3";
 
 package game;
 option go_package = "github.com/xxarupakaxx/zyanken/gen/pb";
-import "proto/zyanken.proto";
+
+import "proto/player.proto";
 
 service MatchingService {
   rpc JoinRoom(JoinRoomRequest) returns (stream JoinRoomResponse) {}
